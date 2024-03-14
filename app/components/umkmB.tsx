@@ -2,9 +2,10 @@
 
 import * as React from "react"
 import { ColumnDef } from "@tanstack/react-table"
+
 import { DataTable } from "@/components/ui/custom/data-table"
 
-
+// ganti umkmp
 export type Sales = { 
   id: string
   namaBrand:string
@@ -123,7 +124,7 @@ const data: Sales[] = [
   },
 ]
 
-export function UMKM_P() {
+export function UMKM_B() {
   return (
     <div className="w-full">
       <DataTable data={data} columns={columns} ></DataTable>

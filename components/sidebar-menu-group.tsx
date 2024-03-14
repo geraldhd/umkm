@@ -1,3 +1,7 @@
+
+
+// to group menus like dashboards, manage
+
 import { useSideBarToggle } from '@/hooks/use-sidebar-toggle'
 import { SideNavItemGroup } from '@/types/type'
 import React from 'react'
