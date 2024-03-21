@@ -69,7 +69,7 @@ async function handlePostMethod(req: NextApiRequest, res: NextApiResponse) {
 async function handleDeleteMethod(req: NextApiRequest, res: NextApiResponse) {
     const idData = req.query.Id as string;
     try {
-      const response = await prisma.umkm_Binaan.delete({
+      const response = await prisma.infoTanggal.delete({
         where: {
           Id: idData,
         },
@@ -197,7 +197,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'GET') {
     if (req.query.type === 'export') {
       try {
-        const data = await prisma.umkm_Binaan.findMany();
+        const data = await prisma.infoTanggal.findMany();
         const buffer = await writeExcel(data);
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         res.setHeader('Content-Disposition', 'attachment; filename=data.xlsx');
