@@ -28,56 +28,26 @@ async function handleGetMethod(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handlePostMethod(req: NextApiRequest, res: NextApiResponse) {
-    const dataFromClient = req.body;
-  
-    try {
-      const result = await prisma.infoTanggal.create({
-        data: {
-          NamaProduk: dataFromClient.NamaProduk,
-          NamaUMKM: dataFromClient.NamaUMKM,
-          NamaPemilik: dataFromClient.NamaPemilik,
-          JumlahBarang: dataFromClient.JumlahBarang,
-          TanggalTerima: dataFromClient.TanggalTerima,
-          TanggalExpired: dataFromClient.TanggalExpired,
-          Status: calculateStatus(dataFromClient.TanggalExpired),
-        },
-      });
-  
-      res.status(200).json(result);
-    } catch (err: any) {
-      console.error(err);
-      res.status(500).json({ message: "Terjadi kesalahan saat menyimpan data" });
-    }
-  }
-  
-  function calculateStatus(expiredDate: Date): string {
-    const today = new Date();
-    const timeDifference = expiredDate.getTime() - today.getTime();
-    const daysLeft = Math.ceil(timeDifference / (1000 * 3600 * 24)); // Konversi milidetik menjadi hari
-  
-    if (daysLeft < 0) {
-      return "Kadaluarsa";
-    } else if (daysLeft === 0) {
-      return "Hari ini kadaluarsa";
-    } else {
-      return `Sisa ${daysLeft} hari`;
-    }
-  }
-  
+  const dataFromClient = req.body;
 
-async function handleDeleteMethod(req: NextApiRequest, res: NextApiResponse) {
-    const idData = req.query.Id as string;
-    try {
-      const response = await prisma.infoTanggal.delete({
-        where: {
-          Id: idData,
-        },
-      });
-      res.status(200).json(response);
-    } catch (err: any) {
-      console.error(err);
-      res.status(500).json({ message: "Terjadi kesalahan saat menghapus data" });
-    }
+  try {
+    const result = await prisma.infoTanggal.create({
+      data: {
+        NamaProduk: dataFromClient.NamaProduk,
+        NamaUMKM: dataFromClient.NamaUMKM,
+        NamaPemilik: dataFromClient.NamaPemilik,
+        JumlahBarang: dataFromClient.JumlahBarang,
+        TanggalTerima: new Date(dataFromClient.TanggalTerima), // Ubah ke tipe Date
+        TanggalExpired: new Date(dataFromClient.TanggalExpired), // Ubah ke tipe Date
+        Status: calculateStatus(new Date(dataFromClient.TanggalExpired)), // Ubah ke tipe Date
+      },
+    });
+
+    res.status(200).json(result);
+  } catch (err: any) {
+    console.error(err);
+    res.status(500).json({ message: "Terjadi kesalahan saat menyimpan data" });
+  }
 }
 
 async function handlePutMethod(req: NextApiRequest, res: NextApiResponse) {
@@ -85,15 +55,15 @@ async function handlePutMethod(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     const result = await prisma.infoTanggal.update({
-        data: {
-            NamaProduk: dataFromClient.NamaProduk,
-            NamaUMKM: dataFromClient.NamaUMKM,
-            NamaPemilik: dataFromClient.NamaPemilik,
-            JumlahBarang: dataFromClient.JumlahBarang,
-            TanggalTerima: dataFromClient.TanggalTerima,
-            TanggalExpired: dataFromClient.TanggalExpired,
-            Status: calculateStatus(dataFromClient.TanggalExpired),
-          },
+      data: {
+        NamaProduk: dataFromClient.NamaProduk,
+        NamaUMKM: dataFromClient.NamaUMKM,
+        NamaPemilik: dataFromClient.NamaPemilik,
+        JumlahBarang: dataFromClient.JumlahBarang,
+        TanggalTerima: new Date(dataFromClient.TanggalTerima), // Ubah ke tipe Date
+        TanggalExpired: new Date(dataFromClient.TanggalExpired), // Ubah ke tipe Date
+        Status: calculateStatus(new Date(dataFromClient.TanggalExpired)), // Ubah ke tipe Date
+      },
       where: {
         Id: dataFromClient.Id,
       },
@@ -103,6 +73,37 @@ async function handlePutMethod(req: NextApiRequest, res: NextApiResponse) {
   } catch (err: any) {
     console.error(err);
     res.status(500).json({ message: "Terjadi kesalahan saat memperbarui data" });
+  }
+}
+
+function calculateStatus(expiredDate: Date): string {
+  const today = new Date();
+  const timeDifference = expiredDate.getTime() - today.getTime();
+  const daysLeft = Math.ceil(timeDifference / (1000 * 3600 * 24)); // Konversi milidetik menjadi hari
+
+  if (daysLeft < 0) {
+    return "Kadaluarsa";
+  } else if (daysLeft === 0) {
+    return "Hari ini kadaluarsa";
+  } else {
+    return `Sisa ${daysLeft} hari`;
+  }
+}
+
+
+
+async function handleDeleteMethod(req: NextApiRequest, res: NextApiResponse) {
+  const idData = req.query.Id as string;
+  try {
+    const response = await prisma.infoTanggal.delete({
+      where: {
+        Id: idData,
+      },
+    });
+    res.status(200).json(response);
+  } catch (err: any) {
+    console.error(err);
+    res.status(500).json({ message: "Terjadi kesalahan saat menghapus data" });
   }
 }
 
