@@ -17,24 +17,24 @@ function AddPemasaran({setData, setDataState} : addDataProps) {
         const formDataJson = Object.fromEntries(formData.entries());
         
         
-        const data = await axios.post('/api/pemasaran', formDataJson)
+        const {data} = await axios.post('/api/pemasaran', formDataJson)
 
-        // setData((lastData)=>[
-        //     ...lastData,
-        //     {
-        //         Id: data.Id,
-        //         Nomor: data.Nomor, 
-        //         NamaBrand: data.NamaBrand,
-        //         NamaOwner: data.NamaOwner,
-        //         Kategori: data.Kategori,
-        //         Alamat: data.Alamat,
-        //         NoHP: data.NoHP,
-        //         Keterangan: data.Keterangan,
-        //         createdAt: new Date(moment(data.createdAt).toISOString()),
-        //         updatedAt: new Date(moment(data.updatedAt).toISOString()),  
-        //     }]
-        // );
-        // setDataState(null);
+        setData((lastData)=>[
+            ...lastData,
+            {
+                Id: data.Id,
+                Nomor: data.Nomor, 
+                NamaBrand: data.NamaBrand,
+                NamaOwner: data.NamaOwner,
+                Kategori: data.Kategori,
+                Alamat: data.Alamat,
+                NoHP: data.NoHP,
+                Keterangan: data.Keterangan,
+                createdAt: new Date(moment(data.createdAt).toISOString()),
+                updatedAt: new Date(moment(data.updatedAt).toISOString()),  
+            }]
+        );
+        setDataState(null);
     }
 
   return (
@@ -46,37 +46,37 @@ function AddPemasaran({setData, setDataState} : addDataProps) {
                 </p>
                 <form onSubmit={handleSubmit}className="pointer-events-auto">
                     <p className="mb-1">Nama Brand</p>
-                    <input
+                    <Input
                         placeholder="Masukan Nama Brand"
                         name='NamaBrand'
                         className="mb-3" 
                     />
                     <p className="mb-1">Nama Owner</p>
-                    <input
+                    <Input
                         placeholder="Masukan Nama Owner"
                         name="NamaOwner"
                         className="mb-3" 
                     />
                     <p className="mb-1">Kategori </p>
-                    <input
+                    <Input
                         placeholder="Masukan Kategori"
                         name='Kategori'
                         className="mb-3" 
                     />
                     <p className="mb-1">Alamat</p>
-                    <input
+                    <Input
                         placeholder="Masukan Alamat"
                         className="mb-3"
                         name='Alamat'
                     />
                     <p className="mb-1">No HP</p>
-                    <input
+                    <Input
                         placeholder="Masukan No HP"
                         className="mb-3"
                         name='NoHP' 
                     />
                     <p className="mb-1">Keterangan</p>
-                    <input
+                    <Input
                         placeholder="Masukan Keterangan"
                         className="mb-3" 
                         name='Keterangan'

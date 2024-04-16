@@ -16,34 +16,27 @@ function AddPemasaran({setData, setDataState} : addDataProps) {
         const formData = new FormData(FormElement);
         const formDataJson = Object.fromEntries(formData.entries());
 
-        try {
-            await axios.post('/api/binaan', formDataJson);
+        
+        const {data} = await axios.post('/api/binaan', formDataJson);
             // Logika untuk menangani data setelah berhasil
-        } catch (error) {
-            if (axios.isAxiosError(error) && error.response) {
-                console.error("Server response:", error.response.data);
-                // Menampilkan pesan error ke pengguna atau logika lainnya
-            } else {
-                console.error("An unexpected error occurred:", error);
-            }
-        }
-        // setData((lastData)=>[
-        //     ...lastData,
-        //     {
-        //         Id: data.Id,
-        //         Nomor: data.Nomor, 
-        //         NamaUMKM: data.NamaUMKM,
-        //         NamaPemilik: data.NamaPemilik,
-        //         Kategori: data.Kategori,
-        //         Alamat: data.Alamat,
-        //         KabKota: data.KabKota,
-        //         NoHP: data.NoHP,
-        //         Keterangan: data.Keterangan,
-        //         createdAt: new Date(moment(data.createdAt).toISOString()),
-        //         updatedAt: new Date(moment(data.updatedAt).toISOString()),  
-        //     }]
-        // );
-        // setDataState(null);
+        
+        setData((lastData)=>[
+            ...lastData,
+            {
+                Id: data.Id,
+                Nomor: data.Nomor, 
+                NamaUMKM: data.NamaUMKM,
+                NamaPemilik: data.NamaPemilik,
+                Kategori: data.Kategori,
+                Alamat: data.Alamat,
+                KabKota: data.KabKota,
+                NoHP: data.NoHP,
+                Keterangan: data.Keterangan,
+                createdAt: new Date(moment(data.createdAt).toISOString()),
+                updatedAt: new Date(moment(data.updatedAt).toISOString()),  
+            }]
+        );
+        setDataState(null);
     }
 
   return (
@@ -54,16 +47,16 @@ function AddPemasaran({setData, setDataState} : addDataProps) {
                     Tambah Data UMKM Binaan 
                 </p>
                 <form onSubmit={handleSubmit}className="pointer-events-auto">
-                    <p className="mb-1">Nama Brand</p>
+                    <p className="mb-1">Nama UMKM</p>
                     <Input
                         placeholder="Masukan Nama Brand"
-                        name = 'NamaBrand'
+                        name = 'NamaUMKM'
                         className="mb-3" 
                     />
                     <p className="mb-1">Nama Owner</p>
                     <Input
                         placeholder="Masukan Nama Owner"
-                        name ='NamaOwner'
+                        name ='NamaPemilik'
                         className="mb-3" 
                     />
                     <p className="mb-1">Kategori </p>
@@ -76,6 +69,12 @@ function AddPemasaran({setData, setDataState} : addDataProps) {
                     <Input
                         placeholder="Masukan Alamat"
                         name = 'Alamat'
+                        className="mb-3" 
+                    />
+                    <p className="mb-1">K</p>
+                    <Input
+                        placeholder="Masukan Alamat"
+                        name = 'KabKota'
                         className="mb-3" 
                     />
                     <p className="mb-1">No HP</p>

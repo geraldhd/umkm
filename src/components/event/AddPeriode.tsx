@@ -16,19 +16,20 @@ function AddPemasaran({setData, setDataState} : addDataProps) {
         const formData = new FormData(FormElement);
         const formDataJson = Object.fromEntries(formData.entries());
         
-        const {data} = await axios.post('/api/pemasaran', formDataJson)
+        const {data} = await axios.post('/api/infoProduk', formDataJson)
 
         setData((lastData)=>[
             ...lastData,
             {
                 Id: data.Id,
                 Nomor: data.Nomor, 
-                NamaBrand: data.NamaBrand,
-                NamaOwner: data.NamaOwner,
-                Kategori: data.Kategori,
-                Alamat: data.Alamat,
-                NoHP: data.NoHP,
-                Keterangan: data.Keterangan,
+                NamaProduk: data.NamaProduk,
+                NamaUMKM: data.NamaUMKM,
+                NamaPemilik: data.NamaPemilik,
+                JumlahBarang: data.JumlahBarang,
+                TanggalTerima: data.TanggalTerima,
+                TanggalExpired: data.TanggalExpired,
+                Status: data.Status,
                 createdAt: new Date(moment(data.createdAt).toISOString()),
                 updatedAt: new Date(moment(data.updatedAt).toISOString()),  
             }]
@@ -44,40 +45,46 @@ function AddPemasaran({setData, setDataState} : addDataProps) {
                     Tambah Data UMKM Binaan 
                 </p>
                 <form onSubmit={handleSubmit}className="pointer-events-auto">
-                    <p className="mb-1">Nama Brand</p>
+                    <p className="mb-1">Nama Produk</p>
                     <Input
-                        placeholder="Masukan Nama Brand"
-                        name = 'NamaBrand'
+                        placeholder="Masukan Nama Produk"
+                        name = 'NamaProduk'
                         className="mb-3" 
                     />
-                    <p className="mb-1">Nama Owner</p>
+                    <p className="mb-1">Nama UMKM</p>
                     <Input
-                        placeholder="Masukan Nama Owner"
-                        name ='NamaOwner'
+                        placeholder="Masukan Nama UMKM"
+                        name ='NamaUMKM'
                         className="mb-3" 
                     />
-                    <p className="mb-1">Kategori </p>
+                    <p className="mb-1">Nama Pemilik </p>
                     <Input
-                        placeholder="Masukan Kategori"
-                        name = 'Kategori'
+                        placeholder="Masukan Nama Pemilik"
+                        name = 'NamaPemilik'
                         className="mb-3" 
                     />
-                    <p className="mb-1">Alamat</p>
+                    <p className="mb-1">Jumlah Barang</p>
                     <Input
-                        placeholder="Masukan Alamat"
-                        name = 'Alamat'
+                        placeholder="Masukan Jumlah Barang"
+                        name = 'JumlahBarang'
                         className="mb-3" 
                     />
-                    <p className="mb-1">No HP</p>
+                    <p className="mb-1">Tanggal Terima</p>
                     <Input
-                        placeholder="Masukan No HP"
-                        name= 'NoHP'
+                        placeholder="Masukan Tanggal Terima"
+                        name= 'TanggalTerima'
                         className="mb-3" 
                     />
-                    <p className="mb-1">Keterangan</p>
+                    <p className="mb-1">Tanggal Expired</p>
                     <Input
-                        placeholder="Masukan Keterangan"
-                        name = 'Keterangan'
+                        placeholder="Masukan Tanggal Expired"
+                        name = 'TanggalExpired'
+                        className="mb-3" 
+                    />
+                    <p className="mb-1">Status</p>
+                    <Input
+                        placeholder="Masukan Status"
+                        name = 'Status'
                         className="mb-3" 
                     />
                     <div>
