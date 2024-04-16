@@ -1,22 +1,22 @@
-import { PemasaranResponse, DataStateType } from "../Tb_pemasaran/Tb_pemasaran";
+import { PeriodeResponse, DataStateType } from "../Tb_periode/Tb_periode";
 import axios from "axios";
 import moment from "moment";
 import React, { FormEvent } from "react";
 import { Input } from "@/components/ui/input"
 
 type addDataProps = {
-    setData: React.Dispatch<React.SetStateAction<PemasaranResponse[]>>
+    setData: React.Dispatch<React.SetStateAction<PeriodeResponse[]>>
     setDataState: React.Dispatch<React.SetStateAction<DataStateType>>
 }
 
-function AddPemasaran({setData, setDataState} : addDataProps) {
+function AddPeriode({setData, setDataState} : addDataProps) {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const FormElement = e.target as HTMLFormElement;
         const formData = new FormData(FormElement);
         const formDataJson = Object.fromEntries(formData.entries());
         
-        const {data} = await axios.post('/api/infoProduk', formDataJson)
+        const {data} = await axios.post('http://localhost:3000/api/infoProduk', formDataJson)
 
         setData((lastData)=>[
             ...lastData,
@@ -27,8 +27,8 @@ function AddPemasaran({setData, setDataState} : addDataProps) {
                 NamaUMKM: data.NamaUMKM,
                 NamaPemilik: data.NamaPemilik,
                 JumlahBarang: data.JumlahBarang,
-                TanggalTerima: data.TanggalTerima,
-                TanggalExpired: data.TanggalExpired,
+                TanggalTerima: new Date(moment(data.TanggalTerima).toISOString()),
+                TanggalExpired: new Date(moment(data.TanggalExpired).toISOString()),
                 Status: data.Status,
                 createdAt: new Date(moment(data.createdAt).toISOString()),
                 updatedAt: new Date(moment(data.updatedAt).toISOString()),  
@@ -71,19 +71,20 @@ function AddPemasaran({setData, setDataState} : addDataProps) {
                     />
                     <p className="mb-1">Tanggal Terima</p>
                     <Input
+                        type = 'date'
                         placeholder="Masukan Tanggal Terima"
                         name= 'TanggalTerima'
                         className="mb-3" 
                     />
                     <p className="mb-1">Tanggal Expired</p>
                     <Input
+                        type = 'date'
                         placeholder="Masukan Tanggal Expired"
                         name = 'TanggalExpired'
                         className="mb-3" 
                     />
                     <p className="mb-1">Status</p>
                     <Input
-                        placeholder="Masukan Status"
                         name = 'Status'
                         className="mb-3" 
                     />
@@ -113,4 +114,4 @@ function AddPemasaran({setData, setDataState} : addDataProps) {
   )
 }
 
-export default AddPemasaran
+export default AddPeriode

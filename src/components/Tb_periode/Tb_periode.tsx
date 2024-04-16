@@ -51,8 +51,8 @@ function Tb_periode() {
                 NamaUMKM: item.NamaUMKM,
                 NamaPemilik: item.NamaPemilik,
                 JumlahBarang: item.JumlahBarang,
-                TanggalTerima: item.TanggalTerima,
-                TanggalExpired: item.TanggalExpired,
+                TanggalTerima: new Date(moment(item.TanggalTerima).toISOString()),
+                TanggalExpired: new Date(moment(item.TanggalExpired).toISOString()),
                 Status: item.Status,
                 createdAt: new Date(moment(item.createdAt).toISOString()),
                 updatedAt: new Date(moment(item.updatedAt).toISOString()),  
@@ -119,23 +119,29 @@ function Tb_periode() {
                                     NO
                                 </TableHead>          
                                 <TableHead>
-                                    NAMA BRAND
+                                    NAMA PRODUK
                                 </TableHead>          
                                 <TableHead>
-                                    NAMA OWNER
+                                    NAMA UMKM
                                 </TableHead>          
                                 <TableHead>
-                                    KATEGORI
+                                    NAMA PEMILIK
                                 </TableHead>          
                                 <TableHead>
-                                    ALAMAT
+                                    Jumlah Barang
                                 </TableHead>          
                                 <TableHead>
-                                    NO HP
+                                    Tanggal Terima
+                                </TableHead>          
+                                <TableHead>
+                                    TanggalExpired
+                                </TableHead>           
+                                <TableHead>
+                                    Status
                                 </TableHead>          
                                 <TableHead>
                                     CREATED AT
-                                </TableHead>               
+                                </TableHead>          
                                 <TableHead>
                                     Action
                                 </TableHead>          
@@ -187,9 +193,9 @@ function Tb_periode() {
                     </Table>
                 </div>
             </div>
-            {/* {datastate == "insert" && (
-                <AddPemasaran setData={setData} setDataState={setDataState}/>
-            )} */}
+            {datastate == "insert" && (
+                <AddPeriode setData={setData} setDataState={setDataState}/>
+            )}
             {/* {datastate == "import" && (
                 <ImportPemasaran setData={setData} setDataState={setDataState}/>
             )} */}

@@ -47,9 +47,9 @@ model Umkm_Binaan {
 }
 
 model infoTanggal {
-  Id String @id @default(uuid())
+  Id String @id @default (uuid()) 
   Nomor Int @default(autoincrement())
-  NamaProduk String
+  NamaProduk String @unique
   NamaUMKM String
   NamaPemilik String
   JumlahBarang Int

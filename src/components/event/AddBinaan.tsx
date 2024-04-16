@@ -9,7 +9,7 @@ type addDataProps = {
     setDataState: React.Dispatch<React.SetStateAction<DataStateType>>
 }
 
-function AddPemasaran({setData, setDataState} : addDataProps) {
+function AddBinaan({setData, setDataState} : addDataProps) {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const FormElement = e.target as HTMLFormElement;
@@ -117,4 +117,4 @@ function AddPemasaran({setData, setDataState} : addDataProps) {
   )
 }
 
-export default AddPemasaran
+export default AddBinaan
